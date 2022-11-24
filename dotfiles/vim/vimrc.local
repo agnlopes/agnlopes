@@ -1,5 +1,8 @@
+" Dracula theme
+colorscheme dracula
+
 " Markdown
 let g:vim_markdown_folding_disabled = 1             " disable markdown folding
-set colorcolumn=80
-
-
+au BufNewFile,BufRead *.md set filetype=markdown
+au BufNewFile,BufRead *.md set colorcolumn=80       " vertical line at col 80
+au BufNewFile,BufRead *.md set spell                " enable check spell
