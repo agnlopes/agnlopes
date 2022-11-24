@@ -1,15 +1,47 @@
+# Locale
+export LC_ALL=en_US.UTF-8  
+export LANG=en_US.UTF-8
+
 # General 
 export EDITOR=vim   # default editor
-unsetopt beep       # no beep
+
+# Disable beeps
+#unsetopt LIST_BEEP  # autocomplete beeps
+unsetopt BEEP       # all beeps
 
 # Set PATH, MANPATH, etc., for Homebrew.
 eval "$(/opt/homebrew/bin/brew shellenv)"
+# brew ruby instead of osx
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export PATH="/opt/homebrew/lib/ruby/gems/3.1.0/bin:$PATH"
 
-# GPG
+# GPG Agent
 export GPG_TTY="$(tty)"
 export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 gpgconf --launch gpg-agent
 
-# Env variables and aliases
-source ~/.environment
+# AWS Auth
+awsauth() {
+    case $1 in
+        en|enable)
+            echo "aws auth environment variables set"
+            eval "$(gpg -dq ~/Workspaces/drivenets/aws.env.gpg)"
+            ;;
+        dis|disable)
+            echo "aws auth environment variables unset"
+            unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
+            ;;
+         *)
+            echo "valid actions are enable and disable"
+            ;;
+    esac
+}
+
+# Change default pager
+export PAGER="/opt/homebrew/bin/most +s"
+
+# disable pager on aws cli commands output
+export AWS_PAGER=""
+
+# Aliases
 source ~/.aliases
