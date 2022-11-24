@@ -1,8 +1,15 @@
-text/html; w3m -I %{charset} -T text/html; copiousoutput
-image/gif; open %s
-image/jpeg; open %s
-image/png; open %s
-application/pgp-keys; pgp -f < %s ; copiousoutput
-application/pdf; /System/Applications/Preview.app/Contents/MacOS/Preview %s
-application/ics; gcalcli --calendar 'André' import %s
+# html emails
+text/html; html2text -width 80 -from_encoding utf-8 %s; copiousoutput
 
+# attached images
+image/*; open %s
+application/pdf; /System/Applications/Preview.app/Contents/MacOS/Preview %s
+
+# pgp keys
+application/pgp-keys; pgp -f < %s ; copiousoutput
+
+# calendar
+#text/calendar; ~/.mutt/bin/mutt-ical.py -i %s
+#application/ics; ~/.mutt/bin/mutt-ical.py -i %s
+#text/calendar; ~/.mutt/bin/mutt-ical.py -D %s; copiousoutput
+#application/ics; ~/.mutt/bin/mutt-ical.py -D %s; copiousoutput
