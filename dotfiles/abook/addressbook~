@@ -1,0 +1,15 @@
+# abook addressbook file
+
+[format]
+program=abook
+version=0.6.1
+
+
+[0]
+name=Ryan Donnelly
+email=rdonnelly@drivenets.com
+
+[1]
+name=Ryan Donnelly
+email=rdonnelly@drivenets.com
+

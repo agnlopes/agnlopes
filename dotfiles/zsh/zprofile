@@ -1,0 +1,15 @@
+# General 
+export EDITOR=vim   # default editor
+unsetopt beep       # no beep
+
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# GPG
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+
+# Env variables and aliases
+source ~/.environment
+source ~/.aliases

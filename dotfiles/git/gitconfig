@@ -1,0 +1,10 @@
+[user]
+	signingkey = 0x62E9B225FFA937C9
+	name = André Lopes
+	email = andre@labmice.io
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg
+[tag]
+	gpgSign = true

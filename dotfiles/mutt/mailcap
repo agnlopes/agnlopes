@@ -1,0 +1,8 @@
+text/html; w3m -I %{charset} -T text/html; copiousoutput
+image/gif; open %s
+image/jpeg; open %s
+image/png; open %s
+application/pgp-keys; pgp -f < %s ; copiousoutput
+application/pdf; /System/Applications/Preview.app/Contents/MacOS/Preview %s
+application/ics; gcalcli --calendar 'André' import %s
+

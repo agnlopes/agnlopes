@@ -1,0 +1,47 @@
+# Paths
+set header_cache      = ~/.mutt/cache/drivenets/headers  # where to store headers
+set message_cachedir  = ~/.mutt/cache/drivenets/bodies   # where to store bodies
+set certificate_file  = ~/.mutt/cache/drivenets/cerficates        # where to store certs
+set signature         = ~/.mutt/accounts/drivenets/signature      # my sutignature file
+set alias_file        = ~/.mutt/alias                  # where to store aliases
+set tmpdir            = ~/.mutt/temp                   # where to keep temp files
+set mailcap_path      = ~/.mutt/mailcap                # entries for filetypes
+
+# Encrypted password
+source "gpg -dq ~/.mutt/accounts/drivenets/drivenets_pwds.gpg |"
+
+# Imap
+set folder    = "imap://127.0.0.1:1143/"
+set imap_user = "alopes@drivenets.com"
+set imap_pass = $my_pass
+
+# Smtp
+set smtp_url = "smtp://alopes@drivenets.com@127.0.0.1:1025"
+set smtp_pass = $my_pass
+#set smtp_authenticators = 'gssapi:login'
+
+# SSL
+set ssl_starttls=no
+set ssl_force_tls=no
+
+# Outlook Folders
+set spoolfile = "+INBOX"
+set postponed = "+Drafts"
+set trash = "+Trash"
+unmailboxes *
+mailboxes \
+    = +INBOX \
+    = +Drafts \
+    = +Sent \
+    = +Trash \
+    = +HR \
+    = +IT
+
+# Compose
+set realname = "André Lopes"
+set from = "alopes@drivenets.com"
+
+# Outlook Contacts
+set query_command= "abook --mutt-query '%s'"
+macro index,pager  a "<pipe-message>abook --add-email-quiet<return>" "Add this sender to Abook"
+bind editor <Tab> complete-query

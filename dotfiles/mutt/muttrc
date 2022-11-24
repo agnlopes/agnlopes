@@ -1,0 +1,163 @@
+# Paths and General Config
+set alias_file = ~/.mutt/alias       # where to store aliases
+set tmpdir = ~/.mutt/temp            # where to keep temp files
+set mailcap_path = ~/.mutt/mailcap   # entries for filetypes
+set rfc2047_parameters = yes
+set check_mbox_size = yes
+
+# Accounts
+source ~/.mutt/accounts/labmice/labmice.muttrc
+macro index,pager A1 '<sync-mailbox><enter-command>source ~/.mutt/accounts/labmice/labmice.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to labmice account" 
+macro index,pager A2 '<sync-mailbox><enter-command>source ~/.mutt/accounts/drivenets/drivenets.muttrc<enter><change-folder>!<enter>;<check-stats>' "switch to drivenets account" 
+
+# Basic Options 
+unset help
+unset record                    # gmail and outlook SMTP already copy emails to Sent folder
+unset move                      # gmail and outlook do that
+set delete                      # don't ask, just do
+unset confirmappend             # don't ask, just do!
+set quit                        # don't ask, just do!!
+set wait_key = no               # shut up, mutt!!!
+set recall = no                 # don't ask to recall postponed message when Composing
+set beep = no                   # disable beeps
+set beep_new                    # bell on new mails
+set pipe_decode                 # strip headers and eval mimes when piping
+set thorough_search             # strip headers and eval mimes before searching
+set reverse_realname = yes      # use any real name provided when replying
+set auto_tag                    # automatically apply commands to all tagged messages (if some messages are tagged)
+set mail_check = 5              # to avoid lags using IMAP with some email providers (yahoo for example)
+set timeout = 5                 # how long to wait after user input until unblocking background stuff like mail syncing
+set count_alternatives = yes    # recurse into text/multipart when looking for attachement types
+set thorough_search = no        # don't process mail (via mailcap etc) before parsing with queries like ~B 
+set flag_safe                   # flagged messages can't be deleted
+set sleep_time = 0              # pause 0 seconds for informational messages
+set pager_read_delay = 3        # view a message foer 3 seconds to mark as read
+set mark_old = no               # unread email stay unread until read
+
+# Dracula theme
+source ~/.mutt/dracula.muttrc
+
+# Status Bar 
+set status_chars   = " *%A"
+
+## status_format - format of summary on the current folder in the index
+## meta strings:
+##  -----f-h---lmn-p-rst-v----  lower case letters (10)
+##  ------------M----------X--  upper case letters (02)
+## %d      the number of messages with the flag 'delete'  (v64)
+## %f      the full pathname of the current mailbox
+## %h      local hostname
+## %l      size (in bytes) of the current mailbox
+## %m      the number of messages in the mailbox
+## %M      the number of messages shown (i.e., which match the current limit)
+## %n      number of new messages in the mailbox
+## %p      number of postponed messages
+## %s      current sorting mode
+## %r      modified/read-only/won't-write/attach-message indicator-status_chars
+## %t      number of tagged messages
+## %v      Mutt version string
+## %>X     right justify the rest of the string and pad with "X"
+## %|X     pad to the end of the line with "X"
+##
+## %?<sequence_char>?<optional_string>? optionally print string, if>0
+##
+## Examples:
+#set status_format="%v: %f (%s) [%?M/?%m]  [flags:%?t tagged,?%n new%?p post?]"
+#set status_format="%v: %f (%s) [%?M/?%m]  [flags:%?t tagged,?%n new]"
+#set status_format="%v: %f (%s) [%M/%m]\n[flags:n=%n,D=%d,t=%t,!=%F]"
+#set status_format="%v: %f (%s) [%M/%m]  [flags:n=%n,t=%t]"
+#set status_format="%v:    (%s) [%M/%m]  [flags:n=%n,t=%t]"
+#set status_format="%v:    (%s) [%M/%m]  [flags:n:%n,t:%t,p:%p]"
+#set status_format="%v:    (%s) [%M/%m]  [flags:%?02n new?,t:%t]"
+#set status_format="%v: %f (%s) [%M/%m]  [flags:%n new,%?t tagged?]"
+#set status_format="%v: %f (%s) [%M/%m;%l bytes]  [N=%n,*=%t,post=%p]"
+#set status_format="%v: %f (%s) [%M/%m] [N=%n,*=%t,post=%p,new=%b]"
+#set status_format=" Msgs=%M(%m) [N=%n,O=%o,*=%t,p=%p] %> %r (%P) %h:%f [%l] (%s/%S) (%v) "
+
+#set status_format  = "Folder: %f : %r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? %>-%?p?( %p postponed )? : "
+set status_on_top = yes
+set status_format  = "Folder: %f : %r%n new (%m messages)%?d? (%d to delete)?%?t? (%t tagged)? %>-%?p?( %p postponed )? : "
+
+# Header Options 
+ignore *                               # ignore all headers
+unignore from: to: cc: date: subject:  # show only these
+unhdr_order *                          # some distros order things
+hdr_order from: to: cc: date: subject: # and in this order
+
+# Index Key Bindings 
+bind index g          noop
+bind index gg         first-entry
+bind index G          last-entry
+bind index R          group-reply
+bind index <tab>      sync-mailbox
+bind index <space>    collapse-thread
+
+# Index View Options
+set date_format = %m.%d.%y"
+set index_format = "[%Z] %D %-20.20F %s"
+set sort = threads                         # like gmail
+set sort_aux = reverse-last-date-received  # like gmail
+set uncollapse_jump                        # don't collapse on an unread message
+set sort_re                                # thread based on regex
+set reply_regexp = "^(([Rr][Ee]?(\[[0-9]+\])?: *)?(\[[^]]+\] *)?)*"
+set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+
+# Pager
+set pager_index_lines = 10                 # number of index lines to show
+set pager_context = 3                      # number of context lines to show
+set pager_stop                             # don't go to next message automatically
+set menu_scroll                            # scroll in menus
+set wrap=90                                # email view width
+set tilde                                  # show tildes like in vim
+unset markers                              # no ugly plus signs
+set allow_ansi                             # allow ansi escape codes (e.g. colors)
+set smart_wrap                             # wrap lines at word boundaries rather than splitting up words
+
+# Index page format. Default "%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s"
+set index_format="%4C %Z %{%b %d %R} %-15.15L (%?l?%4l&%4c?) %s"
+
+# Sidebar
+set mail_check_stats
+set sidebar_visible = yes 
+set sidebar_format="%B%?F? [%F]?%* %?N?%N/?%S"
+set sidebar_divider_char = ' ░ '
+#set sidebar_folder_indent = yes
+#set sidebar_indent_string = ' - '
+#set sidebar_non_empty_mailbox_only = yes
+#set sidebar_width   = 50
+set sidebar_next_new_wrap = yes
+set sidebar_short_path = yes
+set sidebar_component_depth = 0
+
+# Sidebar binds
+bind index,pager \Cp sidebar-prev                 # Ctrl-p to select previous folder
+bind index,pager \Cn sidebar-next                 # Ctrl-n to select next folder
+bind index,pager \Co sidebar-open                 # Ctrl-o to open selected folder
+bind index,pager \Cv sidebar-toggle-visible       # Ctrl-v to toggle visibility of the sidebar
+
+# Compose
+set envelope_from                                # which from?
+set sig_dashes                                   # dashes before sig
+set edit_headers                                 # show headers when composing
+set fast_reply                                   # skip to compose when replying
+unset askcc                                      # don't ask for CC:
+set fcc_attach                                   # save attachments with the body
+set mime_forward = ask-no                        # forward attachments as attachments
+set forward_format = "Fwd: %s"                   # format of subject when forwarding
+set forward_decode                               # decode when forwarding
+set attribution = "On %d, %n wrote:"             # format of quoting header
+set reply_to                                     # reply to Reply to: field
+set reverse_name                                 # reply as whoever it was to
+set include                                      # include message in reply
+set forward_quote                                # include message in forwards
+set editor="vim -c 'set tw=74' -c 'set wrap'"    # vim :)
+set text_flowed = yes                            # eliminate odd line breaks
+
+# Read 
+auto_view application/ics
+auto_view text/calendar
+auto_view text/plain
+auto_view text/html
+auto_view application/pgp-encrypted
+alternative_order text/calendar application/ics text/plain text/enriched text/html
+
